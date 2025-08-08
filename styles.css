@@ -634,3 +634,48 @@ header p {
 html[data-theme] *, html[data-theme] {
     transition: background-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
+
+/* Responsive overrides to improve behavior across devices */
+
+/* Fluid type scaling and text size adjust */
+html { -webkit-text-size-adjust: 100%; font-size: clamp(14px, 1.1vw + 10px, 16px); }
+
+/* Container: fluid, viewport-aware height with fallback */
+.container { height: clamp(520px, 85vh, 820px); width: min(96vw, 720px); }
+@supports (height: 1svh) {
+  .container { height: clamp(520px, 85svh, 820px); }
+}
+
+/* Ensure list scroll is smooth and contained on mobile */
+.todo-list { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; scrollbar-gutter: stable; }
+
+/* Make segmented filters horizontally scrollable on very small widths */
+.todo-filters.segmented { overflow-x: auto; white-space: nowrap; }
+.todo-filters.segmented::-webkit-scrollbar { display: none; }
+
+/* Tweak paddings and sizes on tablets */
+@media (max-width: 1024px) {
+  .container { padding: 32px; }
+}
+
+/* Stack inputs and optimize spacing on mobile */
+@media (max-width: 768px) {
+  .container { padding: 28px 18px; }
+  .input-group { flex-direction: column; gap: 8px; }
+  .priority-select, .due-date-input { width: 100%; }
+  #add-btn { width: 100%; }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+  header h1 { font-size: clamp(1.6rem, 6vw, 2rem); }
+  .theme-toggle { width: 36px; height: 36px; }
+  .todo-item { padding: 12px; gap: 10px; }
+}
+
+/* Short-height devices (landscape phones) */
+@media (max-height: 600px) {
+  .container { padding: 20px 16px; }
+  header { margin-bottom: 12px; }
+  .todo-stats { padding: 10px 0; }
+}
